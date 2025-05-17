@@ -1,0 +1,116 @@
+{% extends 'default.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Checkout</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/userStyles.css' %}">
+    
+</head>
+<body>     
+
+    <br><br>
+
+    <div class="text-center">
+
+        <div class="container">
+
+            <br>
+
+            <h5> Finalize sua compra</h5>
+                
+            <hr>
+
+            <br>
+            
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+
+                            <div class="card-header text-black">
+                                Produtos em seu Carrinho
+                            </div>
+
+                            <div class="card-body">
+
+                                {% for produto in produtos_carrinho %}
+
+                                    {{ produto.nome }}:
+                                    
+                                    {% if produto.desconto %}
+
+                                        R${{ produto.descontoPrec}}
+
+                                    {% else %}
+
+                                        R${{ produto.preco }}
+
+                                    {% endif %}
+
+                                    Quantidade:
+
+                                    {% for key, value in quantidades.items %}
+
+                                        {% if key == produto.id|slugify %}
+
+                                            {{ value }}
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                    <br><br>
+
+                                {% endfor %}
+
+                                Total: {{total}}R$
+                                
+                                <br><br>
+                                
+                                <a href="{% url 'carrinhoVisualizar' %}" class="btn btn-outline-dark btn-sm">Voltar</a>
+
+                            </div>
+                            
+                        </div>
+
+                        <hr>
+
+                        <form method="POST">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    {% csrf_token %}
+                                    {{ envio_form.as_p }}
+                                </div>
+                            </div> 
+
+                            <hr>
+
+                            <a href="#" class="btn btn-primary">Continuar</a>
+
+                        </form>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    
+    </div>   
+
+</body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'default.html' %}
+
+{% block content %}
+
+<body>
+    <br>
+    <br>
+
+    <div class="text-center">
+
+        <div class="container">
+
+            <h2> Categorias </h2>
+
+            <br>
+
+            <h5> Escolha sua categoria abaixo</h5>
+                
+            <hr>
+
+            {% for categoria in categorias %}
+
+                <h5>
+                    <a href="{% url 'categoria' categoria %}"> 
+                        {{categoria}}
+                    </a> 
+                </h5>
+
+            {% endfor %}
+
+            <br>
+
+        </div>
+    
+    </div>
+
+</body>
+
+{% endblock %}

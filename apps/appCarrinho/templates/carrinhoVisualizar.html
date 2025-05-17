@@ -1,0 +1,204 @@
+{% extends 'default.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Seu Carrinho</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/userStyles.css' %}">
+    
+</head>
+<body>     
+
+    {% if produtos_carrinho %}
+
+        {% for produto in produtos_carrinho %}
+
+            <br>
+
+                <div class="carrinhoFlex d-flex justify-content-center">
+            
+                    <center>
+                        
+                        <h5 class="card-title">{{ produto.nome }}</h5>
+                        
+                        <p class="text-black card-text justified">{{ produto.desc }}</p>
+
+                        {% if produto.desconto %}
+                    
+                            <strike class="risco">
+                                R${{ produto.preco }}
+                            </strike> <br> 
+                                R${{ produto.descontoPrec }}
+
+                        {% else %}
+
+                            ${{ produto.preco }}
+                    
+                        {% endif %}
+                    
+                        <br/><br>
+
+                            <p> Quantidade </p>
+                            
+                            <div class="col-md-2">
+                                <select id="select{{produto.id}}">                                 
+
+                                        {% for key, value in quantidades.items %}
+
+                                            {% if key == produto.id|slugify  %}
+
+                                                <option selected>{{ value }}</option>
+
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                    <option value="1">5</option>
+                                    
+                                </select>
+                            </div>
+                            
+                            </div>
+
+                        <br>
+
+                        <div class="text-center">
+
+                            <button type="button" data-index="{{produto.id}}" class="btn btn-outline-dark mt-auto carrinhoAtualizar">
+
+                                Atualizar produto
+
+                            </button>
+
+                            <button type="button" data-index="{{produto.id}}" class="btn btn-outline-dark mt-auto carrinhoRemover">
+
+                                Remover produto
+
+                            </button>
+                            
+                        </div>
+
+                        <br>
+                            
+                        <script>
+
+                            $(document).on('click', '.carrinhoAtualizar', function(e){
+
+                                e.preventDefault();
+
+                                var getProdutoID = $(this).data('index');
+
+                                $.ajax({
+
+                                    type: 'POST',
+                                    url: '{% url "carrinhoAtualizar" %}',
+                                    data: {
+
+                                        produtoID: $(this).data('index'),
+                                        produtoQTD: $('#select' + getProdutoID + ' option:selected').text(),
+
+                                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                                        action: 'post'
+
+                                    },
+
+                                    
+                                    // console.log(json)
+                                    // document.getElementById('carrinhoNum').textContent = json.Quantidade
+                                    
+                                    success: function(json) {
+                                        setTimeout(function() {
+                                            location.reload();
+                                        }, 300);  // Pequeno atraso de 300ms
+                                    },
+
+                                    error: function(xhr, errmsg, err){
+                                        
+                                    }
+
+                                });
+
+                            })
+
+                            $(document).on('click', '.carrinhoRemover', function(e){
+
+                                e.preventDefault();
+
+                                $.ajax({
+
+                                    type: 'POST',
+                                    url: '{% url "carrinhoRemover" %}',
+                                    data: {
+
+                                        produtoID: $(this).data('index'),
+
+                                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                                        action: 'post'
+
+                                    },
+
+                                    
+                                    // console.log(json)
+                                    // document.getElementById('carrinhoNum').textContent = json.Quantidade
+                                    
+                                    success: function(json) {
+                                        setTimeout(function() {
+                                            location.reload();
+                                        }, 300);  // Pequeno atraso de 300ms
+                                    },
+
+                                    error: function(xhr, errmsg, err){
+                                        
+                                    }
+
+                                });
+
+                            })
+
+                        </script>
+
+                    </center>
+    
+                </div> 
+
+            {% endfor %}
+
+            <div class="text-center">
+
+                <div class="container">
+        
+                    <h5> Total: {{total}}R$ </h5>
+        
+                    <br>
+
+                    <hr><br>
+
+                    <a href="{% url 'checkout' %}" class="btn btn-outline-dark mt-auto">Finalizar compra</a>
+
+                </div>
+            
+            </div>
+
+        {% else %}
+
+                <br><br>
+
+        <p class="text-black text-center card-text justified">Não há nada no carrinho!
+    
+    {% endif %}      
+
+</body>
+
+</html>
+
+{% endblock %}

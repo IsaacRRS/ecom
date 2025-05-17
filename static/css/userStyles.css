@@ -1,0 +1,123 @@
+.form {
+    margin-top: 18px;
+    border-radius: 12px;
+    border: solid rgba(0, 0, 0, 0.147) 2.3px;
+    width: 520px;
+}
+
+.containerBusca {
+    width: 800px;
+}
+
+.buscaCard {
+    width: 800px;
+}
+
+.carrinho:hover {
+    background-color: rgb(32, 32, 33);
+    color: white;
+}
+
+.btn:hover {
+    scale: 1.06;
+    transition: 0.8s;
+    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.148);
+    color: black;
+}
+
+.carrinhoAtualizar:hover {
+    background: rgb(0, 0, 0);
+    color: white;
+}
+
+.carrinhoRemover:hover {
+    background: rgb(190, 48, 48);
+}
+
+.form-control {
+    border-color: black;
+    color: black;
+}
+
+.form-control:focus {
+    color: rgb(26, 26, 26);
+    background-color: white;
+    box-shadow: 0 0 0 .035rem rgba(33, 33, 33, 0.825);
+    border-radius: 8px;
+}
+
+.formRegistro {
+    border-radius: 12px;
+    border: solid rgba(0, 0, 0, 0.147) 2.3px;
+    width: 680px;
+    height: 95vh;
+}
+
+.formSenha {
+    height: 60vh;
+}
+
+.formAtualizar {
+    border-radius: 12px;
+    border: solid rgba(0, 0, 0, 0.147) 2.3px;
+    width: 680px;
+    height: 75vh;
+}
+
+.formRegistro input {
+    width: 100%;
+    border-radius: 16px;
+}
+
+.infoAtualizar {
+    height: 86vh;
+}
+
+.campo-input {
+    position: relative;
+    margin: 10px 0;
+}
+
+p {
+    position: relative;
+    top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px 40px 10px 18px;
+    background: white;
+    border: 2px solid rgba(0, 0, 0, 0.605);
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 480;
+    outline: none;
+    color: black;
+}
+
+input::placeholder {
+    color: rgba(0, 0, 0, 0.844);
+    font-weight: 400;
+}
+
+.campo-input i {
+    position: absolute;
+    right: 20px;
+    top: 73%;
+    transform: translateY(-50%);
+}
+
+.linkLogin {
+    position: relative;
+    top: 13px;
+}
+
+a, i {
+    color: black;
+}
+
+.fa-solid.fa-lock {
+    color: black;
+}
+

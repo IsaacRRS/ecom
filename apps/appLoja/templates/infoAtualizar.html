@@ -1,0 +1,61 @@
+{% extends 'default.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/lux/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/userStyles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/ff41a7d76a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <br>
+
+    <div class="infoAtualizar formAtualizar container bg-light shadow-lg p-5">
+
+        <h3 class="text-center"> Atualize suas informações </h3>
+
+        <hr>
+
+        <form action="{% url 'info_atualizar' %}" method="POST" autocomplete="off">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6"> 
+                    <span class="text-black text-bolder">Informações Pessoais</span>
+                    {{ form.as_p }}
+                </div>
+
+                <br>
+                
+                <div class="col-md-6"> 
+                    <span class="text-black text-bolder">Informações de Envio</span>
+                    {{ envio_form.as_p }}
+                </div>
+
+            </div>&nbsp
+    
+            <div class="text-center">
+
+                <button class="botaoRegistro btn btn-primary" type="submit">Atualizar</button>
+
+            </div>
+
+        </form> 
+        
+    </div>
+    <br><br>
+    
+</body>
+
+{% endblock %}
